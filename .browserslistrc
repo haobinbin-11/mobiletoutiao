@@ -1,5 +1,5 @@
 # 这个值会被@babel/preset-env 和 Autoprefixer
-用来确定需要转译的JavaScript 特性和需要添加的 CSS 范围
+# 用来确定需要转译的JavaScript 特性和需要添加的 CSS 范围
 
 # 兼容到超过百分之1的用户使用的浏览器
 # > 1%
