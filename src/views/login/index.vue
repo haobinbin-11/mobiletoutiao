@@ -28,13 +28,19 @@
       </van-field>
     </van-cell-group>
     <div class="login-btn-wrap">
-      <van-button class="login-btn" type="info" block >登录</van-button>
+      <van-button
+        class="login-btn"
+        type="info"
+        block
+        @click="onLogin"
+      >登录</van-button>
     </div>
     <!-- /登录表单 -->
   </div>
 </template>
 
 <script>
+import { login } from '@/api/user'
 export default {
   name: 'LoginIndex',
   components: {},
@@ -51,7 +57,17 @@ export default {
   watch: {},
   created () {},
   mounted () {},
-  methods: {}
+  methods: {
+    async onLogin () {
+      try {
+        const res = await login(this.user)
+        console.log(res)
+      } catch (err) {
+        console.log(err)
+        console.log('登录失败', err)
+      }
+    }
+  }
 }
 </script>
 <style scoped lang="less">
