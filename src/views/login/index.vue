@@ -20,7 +20,7 @@
         icon-prefix="hh"
         left-icon="shouji"
         placeholder="请输入手机号"
-        :rules="[{ required: true, message: '请填写用户名' }]"
+        :rules="formRules.mobile"
       />
       <van-field
         v-model="user.code"
@@ -28,6 +28,7 @@
         icon-prefix="hh"
         left-icon="yanzhengma"
         placeholder="请输入验证码"
+        :rules="formRules.code"
       >
         <template #button>
           <van-button class="send-btn" size="small" round >发送验证码</van-button>
@@ -57,6 +58,16 @@ export default {
       user: {
         mobile: '', // 手机号
         code: '' // 验证码
+      },
+      formRules: {
+        mobile: [
+          { required: true, message: '请输入手机号' },
+          { pattern: /^1[3|5|7|8|9]\d{9}$/, message: '手机号格式错误' }
+        ],
+        code: [
+          { required: true, message: '请输入验证码' },
+          { pattern: /^\d{6}$/, message: '验证码格式错误' }
+        ]
       }
     }
   },
