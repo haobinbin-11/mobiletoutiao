@@ -7,13 +7,20 @@
       @click-left="$router.back()"
     />
 
+    <!-- 基于 Vant 的表单验证:
+        1. 使用 van-form 组件包裹所有的表单项 van-field
+        2. 给 van-form 绑定 submit 事件 当表单提交的时候出发该事件
+           只有表单验证通过 它菜调用 submit
+        3. 使用 Field 的rules属性定义校验规则
+    -->
     <!-- 登录表单 -->
-    <van-cell-group>
+    <van-form @submit="onLogin">
       <van-field
         v-model="user.mobile"
         icon-prefix="hh"
         left-icon="shouji"
         placeholder="请输入手机号"
+        :rules="[{ required: true, message: '请填写用户名' }]"
       />
       <van-field
         v-model="user.code"
@@ -26,15 +33,14 @@
           <van-button class="send-btn" size="small" round >发送验证码</van-button>
         </template>
       </van-field>
-    </van-cell-group>
-    <div class="login-btn-wrap">
-      <van-button
-        class="login-btn"
-        type="info"
-        block
-        @click="onLogin"
-      >登录</van-button>
-    </div>
+      <div class="login-btn-wrap">
+        <van-button
+          class="login-btn"
+          type="info"
+          block
+        >登录</van-button>
+      </div>
+    </van-form>
     <!-- /登录表单 -->
   </div>
 </template>
