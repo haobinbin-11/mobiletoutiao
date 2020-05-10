@@ -41,6 +41,7 @@
 
 <script>
 import { login } from '@/api/user'
+// import { Toast } from 'vant'
 export default {
   name: 'LoginIndex',
   components: {},
@@ -59,12 +60,20 @@ export default {
   mounted () {},
   methods: {
     async onLogin () {
+      this.$toast.loading({
+        message: '登录中.....', // 提示文本
+        forbidClick: true,
+        loadingType: 'spinner',
+        duration: 0 //  loading 展示时长 值为0时 不会消失  单位(ms)
+      })
       try {
         const res = await login(this.user)
         console.log(res)
+        // 下一个提示会把上一个提示覆盖掉
+        this.$toast.success('登录成功')
       } catch (err) {
         console.log(err)
-        console.log('登录失败', err)
+        this.$toast.fail('登录失败, 手机号或验证码错误')
       }
     }
   }
