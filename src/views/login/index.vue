@@ -14,12 +14,19 @@
         3. 使用 Field 的rules属性定义校验规则
     -->
     <!-- 登录表单 -->
-    <van-form @submit="onLogin">
+    <van-form
+      :show-error="false"
+      :show-error-message="false"
+      :validate-first="true"
+      @submit="onLogin"
+      @failed="onFailed"
+    >
       <van-field
         v-model="user.mobile"
         icon-prefix="hh"
         left-icon="shouji"
         placeholder="请输入手机号"
+        name="手机号"
         :rules="formRules.mobile"
       />
       <van-field
@@ -28,6 +35,7 @@
         icon-prefix="hh"
         left-icon="yanzhengma"
         placeholder="请输入验证码"
+        name="验证码"
         :rules="formRules.code"
       >
         <template #button>
@@ -91,6 +99,14 @@ export default {
       } catch (err) {
         console.log(err)
         this.$toast.fail('登录失败, 手机号或验证码错误')
+      }
+    },
+    onFailed (error) {
+      if (error.errors[0]) {
+        this.$toast({
+          message: error.errors[0].message,
+          position: 'top'
+        })
       }
     }
   }
