@@ -70,11 +70,11 @@ body {
   content: "\e612";
 }
 .app-nav-bar {
-  background-color: #3296fa !important;
+  background-color: #3296fa;
 }
 .app-nav-bar .van-nav-bar__title {
   color: #ffffff;
 }
 .app-nav-bar .van-icon {
-  color: #ffffff !important;
+  color: #ffffff;
 }
