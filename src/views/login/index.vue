@@ -18,6 +18,7 @@
       :show-error="false"
       :show-error-message="false"
       :validate-first="true"
+      ref="login-form"
       @submit="onLogin"
       @failed="onFailed"
     >
@@ -26,7 +27,7 @@
         icon-prefix="hh"
         left-icon="shouji"
         placeholder="请输入手机号"
-        name="手机号"
+        name="mobile"
         :rules="formRules.mobile"
       />
       <van-field
@@ -35,11 +36,16 @@
         icon-prefix="hh"
         left-icon="yanzhengma"
         placeholder="请输入验证码"
-        name="验证码"
+        name="code"
         :rules="formRules.code"
       >
         <template #button>
-          <van-button class="send-btn" size="small" round >发送验证码</van-button>
+          <van-button
+            class="send-btn"
+            size="small"
+            round
+            @click.prevent="onSendSms"
+          >发送验证码</van-button>
         </template>
       </van-field>
       <div class="login-btn-wrap">
@@ -108,6 +114,25 @@ export default {
           position: 'top'
         })
       }
+    },
+    async onSendSms () {
+      // 校验手机号码
+      try {
+        await this.$refs['login-form'].validate('mobile')
+        // 验证通过, 请求发送验证码
+      } catch (err) {
+        this.$toast({
+          message: err.message, // 提示
+          position: 'top'
+        })
+      }
+      // this.$refs['login-form'].validate('mobile').then(
+      //   data => {
+      //   }
+      // )
+      // 验证通过 请求发送验证码 用户接受短信 输入验证码 请求登录
+      // 请求发送验证码 隐藏发送按钮 显示倒计时
+      // 倒计时结束 隐藏倒计时 显示发送按钮
     }
   }
 }
