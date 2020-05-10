@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { login } from '@/api/user'
+import { login, sendSms } from '@/api/user'
 // import { Toast } from 'vant'
 export default {
   name: 'LoginIndex',
@@ -118,11 +118,27 @@ export default {
     async onSendSms () {
       // 校验手机号码
       try {
-        await this.$refs['login-form'].validate('mobile')
+        await this.$refs['login-form'].validate('mobile'
+        )
         // 验证通过, 请求发送验证码
+        const res = await sendSms(this.user.mobile)
+        console.log(res)
       } catch (err) {
+        // try 里面任何代码的错误都会进入到 catch
+        // 不同的错误需要不同的提示, 需要判断
+        let message = ''
+        if (err && err.response && err.response.status === 429) {
+          // 发送短信失败错误提示
+          message = '发送频繁,请稍后重试'
+        } else if (err.name === 'mobile') {
+          // 表单验证失败错误提示
+          message = err.message
+        } else {
+          message = '发送失败, 请稍后重试'
+        }
+        // 提示用户
         this.$toast({
-          message: err.message, // 提示
+          message,
           position: 'top'
         })
       }
