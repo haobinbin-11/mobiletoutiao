@@ -106,15 +106,16 @@ export default {
     async onLogin () {
       this.$toast.loading({
         message: '登录中.....', // 提示文本
-        forbidClick: true,
+        forbidClick: true, // 禁止背景点击
         loadingType: 'spinner',
         duration: 0 //  loading 展示时长 值为0时 不会消失  单位(ms)
       })
       try {
-        const res = await login(this.user)
-        console.log(res)
+        const { data } = await login(this.user)
         // 下一个提示会把上一个提示覆盖掉
         this.$toast.success('登录成功')
+        // 将后端返回的用户状态(token等数据)放到 Vuex 容器中
+        this.$store.commit('setUser', data.data)
       } catch (err) {
         console.log(err)
         this.$toast.fail('登录失败, 手机号或验证码错误')
@@ -131,8 +132,9 @@ export default {
     async onSendSms () {
       // 校验手机号码
       try {
-        await this.$refs['login-form'].validate('mobile'
+        const res = await this.$refs['login-form'].validate('mobile'
         )
+        console.log(res)
         // 开启loading
         this.isSendSmsLoading = true
         // 验证通过, 请求发送验证码 // 请求发送验证码 隐藏发送按钮 显示倒计时
