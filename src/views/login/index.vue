@@ -81,8 +81,8 @@ export default {
   data () {
     return {
       user: {
-        mobile: '', // 手机号
-        code: '' // 验证码
+        mobile: '18519689002', // 手机号
+        code: '246810' // 验证码
       },
       formRules: {
         mobile: [
