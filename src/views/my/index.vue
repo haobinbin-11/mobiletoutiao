@@ -70,6 +70,17 @@
         />
       </van-grid>
       <!-- /宫格导航 -->
+      <van-cell
+        title="消息通知"
+        is-link
+        to="/"
+      />
+      <van-cell
+        title="小智同学"
+        is-link
+        to="/"
+      />
+      <van-cell title="退出登录" />
   </div>
 </template>
 
