@@ -24,6 +24,32 @@
           round
         >编辑资料</van-buttton>
       </van-cell>
+      <van-grid>
+        <van-grid-item >
+          <div slot="text">
+            <div slot="span">123</div>
+            <div slot="text">头条</div>
+          </div>
+        </van-grid-item>
+        <van-grid-item >
+          <div slot="text">
+            <div slot="span">123</div>
+            <div slot="text">关注</div>
+          </div>
+        </van-grid-item>
+        <van-grid-item >
+          <div slot="text">
+            <div slot="span">123</div>
+            <div slot="text">粉丝</div>
+          </div>
+        </van-grid-item>
+        <van-grid-item >
+          <div slot="text">
+            <div slot="span">123</div>
+            <div slot="text">获赞</div>
+          </div>
+        </van-grid-item>
+      </van-grid>
     </van-cell-group>
   </div>
 </template>
