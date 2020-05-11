@@ -5,6 +5,7 @@
       <div class="data-info"></div>
     </div> -->
     <van-cell-group>
+      <!-- 头部用户信息 -->
       <van-cell
         center
         title="单元格"
@@ -24,6 +25,9 @@
           round
         >编辑资料</van-buttton>
       </van-cell>
+      <!-- /头部用户信息 -->
+
+      <!-- 头部用户数据 -->
       <van-grid>
         <van-grid-item >
           <div slot="text">
@@ -50,7 +54,22 @@
           </div>
         </van-grid-item>
       </van-grid>
+      <!-- /头部用户信息 -->
     </van-cell-group>
+      <!-- 宫格导航 -->
+      <van-grid :column-num="2">
+        <van-grid-item
+          icon-prefix="hh"
+          icon="shoucang"
+          text="文字"
+        />
+        <van-grid-item
+          icon-prefix="hh"
+          icon="lishi"
+          text="文字"
+        />
+      </van-grid>
+      <!-- /宫格导航 -->
   </div>
 </template>
 
