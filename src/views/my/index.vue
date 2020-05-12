@@ -4,7 +4,7 @@
       <div class="base-info"></div>
       <div class="data-info"></div>
     </div> -->
-    <van-cell-group class="header">
+    <van-cell-group v-if="user" class="header">
       <!-- 头部用户信息 -->
       <van-cell
         class="co"
@@ -58,6 +58,16 @@
       </van-grid>
       <!-- /头部用户信息 -->
     </van-cell-group>
+
+    <!-- 未登录显示页面 -->
+    <div v-else class="not-login">
+      <div @click="$router.push('./login')">
+        <img src="./手机.png" class="mobile">
+      </div>
+      <div class="text">登录  /  注册</div>
+    </div>
+    <!-- /未登录显示页面 -->
+
       <!-- 宫格导航 -->
       <van-grid class="nav-grid" :column-num="2">
         <van-grid-item
@@ -86,6 +96,7 @@
         to="/"
       />
       <van-cell
+        v-if="user"
         class="jz"
         title="退出登录"
         center
@@ -94,6 +105,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'MyIndex',
   components: {},
@@ -101,7 +113,9 @@ export default {
   data () {
     return {}
   },
-  computed: {},
+  computed: {
+    ...mapState(['user'])
+  },
   watch: {},
   created () {},
   mounted () {},
@@ -159,6 +173,23 @@ export default {
     }
     /deep/ .van-grid-item__content {
       background-color: unset;
+    }
+  }
+  .not-login {
+    height: 180px;
+    background: url("./1.png") no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .mobile {
+      width: 66px;
+      height: 66px;
+    }
+    .text {
+      color: #ffffff;
+      font-size: 14px;
     }
   }
   /deep/.nav-grid {
