@@ -100,6 +100,7 @@
         class="jz"
         title="退出登录"
         center
+        @click="onLogout"
       />
   </div>
 </template>
@@ -119,7 +120,22 @@ export default {
   watch: {},
   created () {},
   mounted () {},
-  methods: {}
+  methods: {
+    onLogout () {
+      // 用户退出
+      this.$dialog.confirm({
+        title: '推出提示',
+        message: '确认退出吗？'
+      })
+        .then(() => {
+          // 确认 清除登录状态
+          this.$store.commit('setUser', null)
+        })
+        .catch(() => {
+          // on cancel
+        })
+    }
+  }
 }
 </script>
 <style scoped lang="less">
