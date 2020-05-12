@@ -1,6 +1,6 @@
 // 用户相关请求模块
 import request from '@/utils/request'
-import store from '@/store'
+// import store from '@/store'
 // 登录注册
 export const login = data => {
   return request({
@@ -20,9 +20,9 @@ export const sendSms = mobile => {
 export const getCurrentUser = () => {
   return request({
     method: 'GET',
-    url: '/app/v1_0/user',
-    headers: {
-      Authorization: `Bearer ${store.state.user.token}`
-    }
+    url: '/app/v1_0/user'
+    // headers: {
+    //   Authorization: `Bearer ${store.state.user.token}`
+    // }
   })
 }
