@@ -16,7 +16,7 @@
     <!-- /导航栏 -->
 
     <!--文章频道列表 -->
-    <van-tabs v-model="active">
+    <van-tabs class="channel-tabs" v-model="active">
       <van-tab
         :title="channel.name"
         v-for="channel in channels"
@@ -76,6 +76,18 @@ export default {
     }
     .van-button__text {
       font-size: 14px;
+    }
+  }
+  .channel-tabs {
+    /deep/ .van-tab {
+      border-right: 1px solid #edeff3;
+      border-bottom: 1px solid #edeff3;
+    }
+    /deep/ .van-tabs__line {
+      width: 15px !important;
+      height: 3px;
+      background-color: #3296fa;
+      bottom: 20px;
     }
   }
 }

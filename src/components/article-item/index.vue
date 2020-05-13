@@ -19,7 +19,7 @@
       <div class="label_wrap">
         <span>{{ article.aut_name }}</span>
         <span>{{ article.aut_count }}评论</span>
-        <span>{{ article.pubdate }}</span>
+        <span>{{ article.pubdate | relativeTime }}</span>
       </div>
     </div>
     <van-image
