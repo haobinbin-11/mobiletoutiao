@@ -13,6 +13,8 @@ import 'amfe-flexible'
 
 // 加载全局样式(放在最后方便覆盖第三方包样式)
 import './styles/index.css'
+
+import './utils/dayjs'
 Vue.use(Vant)
 Vue.config.productionTip = false
 //  创建Vue根实例 将 router strore 配置到
