@@ -19,11 +19,11 @@
           :src="currentUser.photo"
         />
         <div class="name" slot="title">{{currentUser.name}}</div>
-        <van-buttton
+        <van-button
           class="update-btn"
           size="small"
           round
-        >编辑资料</van-buttton>
+        >编辑资料</van-button>
       </van-cell>
       <!-- /头部用户信息 -->
 
@@ -167,8 +167,8 @@ export default {
         font-size: 15px;
         color: white;
       }
-      .update-btn {
-        height: 7px;
+      /deep/ .update-btn {
+        height: 20px;
         background-color: #ffff;
         padding: 3px;
         font-size: 10px;

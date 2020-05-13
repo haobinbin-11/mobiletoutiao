@@ -7,7 +7,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 
 // 配置中文语言包
-dayjs.local('zh-cn')
+dayjs.locale('zh-cn')
 
 // 把处理方法相对时间的代码包装成过滤器
 // 然后就可以在任何组件的模板中使用了
