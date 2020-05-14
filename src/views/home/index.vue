@@ -46,7 +46,10 @@
       style="height: 100%"
       closeable
     >
-      <channel-edit></channel-edit>
+      <channel-edit
+        :user-channels="channels"
+      >
+      </channel-edit>
     </van-popup>
   </div>
 </template>
