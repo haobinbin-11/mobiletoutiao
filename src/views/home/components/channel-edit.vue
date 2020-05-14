@@ -11,14 +11,17 @@
         round
         plain
         size="mini"
-      >编辑</van-button>
+        @click="isEdit = !isEdit"
+      >{{ isEdit ? '完成' : '编辑' }}</van-button>
     </van-cell>
     <van-grid :gutter="10">
       <van-grid-item
+        :icon="(isEdit && index != 0) ? 'clear' : ''"
         class="grid-item"
         v-for="(channel, index) in userChannels"
         :key="index"
         :text="channel.name"
+        @click="onUserChannelClick(index)"
       />
     </van-grid>
     <!-- /我的频道 -->
@@ -36,6 +39,7 @@
         v-for="(channel, index) in recommendChannels"
         :key="index"
         :text="channel.name"
+        @click="onAdd(channel)"
       />
     </van-grid>
     <!-- /频道推荐 -->
@@ -55,7 +59,8 @@ export default {
   },
   data () {
     return {
-      AllChannels: [] // 获取所有频道数据列表
+      AllChannels: [], // 获取所有频道数据列表
+      isEdit: false // 控制编辑的显示状态
     }
   },
   computed: {
@@ -78,6 +83,25 @@ export default {
     async loadAllChannels () {
       const { data } = await getAllChannels()
       this.AllChannels = data.data.channels
+    },
+    onAdd (channel) {
+      this.userChannels.push(channel)
+    },
+    onUserChannelClick (index) {
+      // 编辑状态 删除频道
+      if (this.isEdit && index !== 0) {
+        this.deleteChannel(index)
+      } else {
+        // 非编辑状态 切换频道
+        this.switchChannel(index)
+      }
+    },
+    deleteChannel (index) {
+      this.userChannels.splice(index, 1)
+      // 数据持久化
+    },
+    switchChannel (index) {
+      console.log('切换频道')
     }
   }
 }
@@ -97,7 +121,15 @@ export default {
             /deep/ .van-grid-item__text {
                 font-size: 14px;
                 color: #222;
+                margin-top: 0;
             }
+        }
+        /deep/ .van-grid-item__icon {
+            position: absolute;
+            right: -5px;
+            top: -5px;
+            color: #cccccc;
+            font-size: 18px;
         }
     }
 }
