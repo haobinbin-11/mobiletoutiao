@@ -48,6 +48,8 @@
     >
       <channel-edit
         :user-channels="channels"
+        @close="isChannelEditShow = false"
+        @update-active="onUpdateActive"
       >
       </channel-edit>
     </van-popup>
@@ -83,6 +85,9 @@ export default {
       // 请求获取频道数据
       const { data } = await getUserChannels()
       this.channels = data.data.channels
+    },
+    onUpdateActive (index) {
+      this.active = index
     }
   }
 }
