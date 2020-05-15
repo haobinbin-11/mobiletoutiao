@@ -47,6 +47,7 @@
       closeable
     >
       <channel-edit
+        :active="active"
         :user-channels="channels"
         @close="isChannelEditShow = false"
         @update-active="onUpdateActive"
