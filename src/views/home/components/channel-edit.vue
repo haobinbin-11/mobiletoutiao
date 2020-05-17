@@ -22,7 +22,7 @@
         v-for="(channel, index) in userChannels"
         :key="index"
         :text="channel.name"
-        @click="onUserChannelClick(index)"
+        @click="onUserChannelClick(channel, index)"
       />
     </van-grid>
     <!-- /我的频道 -->
@@ -48,7 +48,9 @@
 </template>
 
 <script>
-import { getAllChannels } from '@/api/channel'
+import { getAllChannels, addUserChannel, deleteUserChannel } from '@/api/channel'
+import { mapState } from 'vuex'
+import { setItem } from '@/utils/storage'
 export default {
   name: 'ChannelEdit',
   components: {},
@@ -69,6 +71,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['user']),
     // 推荐的频道列表
     recommendChannels () {
       // filter 方法: 过滤数据 根据方法返回布尔值 true 来收集数据
@@ -89,19 +92,30 @@ export default {
       const { data } = await getAllChannels()
       this.AllChannels = data.data.channels
     },
-    onAdd (channel) {
+    async onAdd (channel) {
       this.userChannels.push(channel)
+      // 数据持久化
+      if (this.user) {
+        await addUserChannel({
+          channels: [
+            { id: channel.id, seq: this.userChannels.length }
+          ]
+        })
+      } else {
+        // 没有登录, 数据存储到本地
+        setItem('user-channels', this.userChannels)
+      }
     },
-    onUserChannelClick (index) {
+    onUserChannelClick (channel, index) {
       // 编辑状态 删除频道
       if (this.isEdit && index !== 0) {
-        this.deleteChannel(index)
+        this.deleteChannel(channel, index)
       } else {
         // 非编辑状态 切换频道
         this.switchChannel(index)
       }
     },
-    deleteChannel (index) {
+    async deleteChannel (channel, index) {
       // 如果删除的是当前激活频道之前的频道
       if (index <= this.active) {
         // 更新激活频道的索引
@@ -109,6 +123,11 @@ export default {
       }
       this.userChannels.splice(index, 1)
       // 数据持久化
+      if (this.user) {
+        await deleteUserChannel(channel.id)
+      } else {
+        setItem('user-channels', this.userChannels)
+      }
     },
     switchChannel (index) {
       console.log('切换频道')
